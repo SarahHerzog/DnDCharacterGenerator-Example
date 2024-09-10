@@ -1,6 +1,7 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */ 
 #include <iostream>
+#include <math.h> 
 
 
 int RollD6()
@@ -42,6 +43,11 @@ int GenerateAbilityScore()
 	return total;
 }
 
+int CalculateAbilityBonus(int score)
+{
+	return floor(((float)(score - 10)) / 2);
+}
+
 int main()
 {
 	srand(time(NULL));
@@ -54,4 +60,7 @@ int main()
 	std::cout << GenerateAbilityScore() << "\n";
 	std::cout << GenerateAbilityScore() << "\n";
 
+
+	std::cout << CalculateAbilityBonus(13) << "\n";
+	std::cout << CalculateAbilityBonus(9) << "\n";
 }
