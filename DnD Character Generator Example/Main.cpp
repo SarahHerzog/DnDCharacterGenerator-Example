@@ -46,12 +46,32 @@ int GenerateAbilityScore()
 
 int CalculateAbilityBonus(int score)
 {
-	return floor(((float)(score - 10)) / 2);
+	return floor((score - 10) / 2.0f);
 }
 
 void PrintAbilityScore(std::string name, int score)
 {
 	std::cout << name << ": " << score << " (" << CalculateAbilityBonus(score) << ")\n";
+}
+
+bool QualifiesForWizard(std::map<std::string, int> scores)
+{
+	return scores["Intelligence"] >= 13;
+}
+
+bool QualifiesForBard(std::map<std::string, int> scores)
+{
+	return scores["Charisma"] >= 13;
+}
+
+bool QualifiesForRogue(std::map<std::string, int> scores)
+{
+	return scores["Dexterity"] >= 13;
+}
+
+bool QualifiesForFighter(std::map<std::string, int> scores)
+{
+	return scores["Strength"] >= 13;
 }
 
 int main()
@@ -73,4 +93,23 @@ int main()
 	PrintAbilityScore("Intelligence", abilityScores["Intelligence"]);
 	PrintAbilityScore("Wisdom", abilityScores["Wisdom"]);
 	PrintAbilityScore("Charisma", abilityScores["Charisma"]);
+
+	bool qualifiesForAnyClass = QualifiesForWizard(abilityScores) || QualifiesForBard(abilityScores) || QualifiesForFighter(abilityScores) || QualifiesForRogue(abilityScores);
+
+	if (qualifiesForAnyClass)
+	{
+		std::cout << "This character qualifies to be:\n";
+		if (QualifiesForWizard(abilityScores))
+			std::cout << "   - Wizard\n";
+		if (QualifiesForBard(abilityScores))
+			std::cout << "   - Bard\n";
+		if (QualifiesForRogue(abilityScores))
+			std::cout << "   - Rogue\n";
+		if (QualifiesForFighter(abilityScores))
+			std::cout << "   - Fighter\n";
+	}
+	else
+	{
+		std::cout << "This character does not qualify for any classes.\n";
+	}
 }
