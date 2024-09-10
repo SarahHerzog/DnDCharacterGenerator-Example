@@ -122,14 +122,27 @@ int main()
 			std::cout << "This character does not qualify for any classes.\n";
 		}
 
-		std::cout << "Would you like to reroll your stats? (Y/N)\n";
-		std::string answer;
-		std::cin >> answer;
-
-		if (answer == "N" || answer == "n")
+		// Force them to reroll if they don't qualify for any class.
+		if (qualifiesForAnyClass)
 		{
-			rollNewCharacter = false;
+
+			std::cout << "Would you like to reroll your stats? (Y/N)\n";
+			std::string answer;
+			std::cin >> answer;
+
+			if (answer == "N" || answer == "n")
+			{
+				rollNewCharacter = false;
+			}
 		}
+		else
+		{
+
+			std::cout << "You must reroll as you do not qualify for any class. Press any key to continue.\n";
+			std::string answer;
+			std::cin >> answer;
+		}
+
 	}
 
 }
