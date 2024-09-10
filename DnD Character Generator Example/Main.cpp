@@ -74,42 +74,62 @@ bool QualifiesForFighter(std::map<std::string, int> scores)
 	return scores["Strength"] >= 13;
 }
 
+void PrintAbilityScores(std::map<std::string, int> scores)
+{
+	PrintAbilityScore("Strength", scores["Strength"]);
+	PrintAbilityScore("Dexterity", scores["Dexterity"]);
+	PrintAbilityScore("Constitution", scores["Constitution"]);
+	PrintAbilityScore("Intelligence", scores["Intelligence"]);
+	PrintAbilityScore("Wisdom", scores["Wisdom"]);
+	PrintAbilityScore("Charisma", scores["Charisma"]);
+}
+
 int main()
 {
 	srand(time(NULL));
 
-	std::map<std::string, int> abilityScores;
+	bool rollNewCharacter = true;
 
-	abilityScores["Strength"] = GenerateAbilityScore();
-	abilityScores["Dexterity"] = GenerateAbilityScore();
-	abilityScores["Constitution"] = GenerateAbilityScore();
-	abilityScores["Intelligence"] = GenerateAbilityScore();
-	abilityScores["Wisdom"] = GenerateAbilityScore();
-	abilityScores["Charisma"] = GenerateAbilityScore();
-	
-	PrintAbilityScore("Strength", abilityScores["Strength"]);
-	PrintAbilityScore("Dexterity", abilityScores["Dexterity"]);
-	PrintAbilityScore("Constitution", abilityScores["Constitution"]);
-	PrintAbilityScore("Intelligence", abilityScores["Intelligence"]);
-	PrintAbilityScore("Wisdom", abilityScores["Wisdom"]);
-	PrintAbilityScore("Charisma", abilityScores["Charisma"]);
-
-	bool qualifiesForAnyClass = QualifiesForWizard(abilityScores) || QualifiesForBard(abilityScores) || QualifiesForFighter(abilityScores) || QualifiesForRogue(abilityScores);
-
-	if (qualifiesForAnyClass)
+	while (rollNewCharacter)
 	{
-		std::cout << "This character qualifies to be:\n";
-		if (QualifiesForWizard(abilityScores))
-			std::cout << "   - Wizard\n";
-		if (QualifiesForBard(abilityScores))
-			std::cout << "   - Bard\n";
-		if (QualifiesForRogue(abilityScores))
-			std::cout << "   - Rogue\n";
-		if (QualifiesForFighter(abilityScores))
-			std::cout << "   - Fighter\n";
+		std::map<std::string, int> abilityScores;
+
+		abilityScores["Strength"] = GenerateAbilityScore();
+		abilityScores["Dexterity"] = GenerateAbilityScore();
+		abilityScores["Constitution"] = GenerateAbilityScore();
+		abilityScores["Intelligence"] = GenerateAbilityScore();
+		abilityScores["Wisdom"] = GenerateAbilityScore();
+		abilityScores["Charisma"] = GenerateAbilityScore();
+
+		PrintAbilityScores(abilityScores);
+
+		bool qualifiesForAnyClass = QualifiesForWizard(abilityScores) || QualifiesForBard(abilityScores) || QualifiesForFighter(abilityScores) || QualifiesForRogue(abilityScores);
+
+		if (qualifiesForAnyClass)
+		{
+			std::cout << "This character qualifies to be:\n";
+			if (QualifiesForWizard(abilityScores))
+				std::cout << "   - Wizard\n";
+			if (QualifiesForBard(abilityScores))
+				std::cout << "   - Bard\n";
+			if (QualifiesForRogue(abilityScores))
+				std::cout << "   - Rogue\n";
+			if (QualifiesForFighter(abilityScores))
+				std::cout << "   - Fighter\n";
+		}
+		else
+		{
+			std::cout << "This character does not qualify for any classes.\n";
+		}
+
+		std::cout << "Would you like to reroll your stats? (Y/N)\n";
+		std::string answer;
+		std::cin >> answer;
+
+		if (answer == "N" || answer == "n")
+		{
+			rollNewCharacter = false;
+		}
 	}
-	else
-	{
-		std::cout << "This character does not qualify for any classes.\n";
-	}
+
 }
