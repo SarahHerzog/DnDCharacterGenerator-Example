@@ -2,6 +2,7 @@
 #include <time.h>       /* time */ 
 #include <iostream>
 #include <math.h> 
+#include <map>
 
 
 int RollD6()
@@ -48,19 +49,28 @@ int CalculateAbilityBonus(int score)
 	return floor(((float)(score - 10)) / 2);
 }
 
+void PrintAbilityScore(std::string name, int score)
+{
+	std::cout << name << ": " << score << " (" << CalculateAbilityBonus(score) << ")\n";
+}
+
 int main()
 {
 	srand(time(NULL));
 
-	std::cout << GenerateAbilityScore() << "\n";
-	std::cout << GenerateAbilityScore() << "\n";
-	std::cout << GenerateAbilityScore() << "\n";
-	std::cout << GenerateAbilityScore() << "\n";
-	std::cout << GenerateAbilityScore() << "\n";
-	std::cout << GenerateAbilityScore() << "\n";
-	std::cout << GenerateAbilityScore() << "\n";
+	std::map<std::string, int> abilityScores;
 
-
-	std::cout << CalculateAbilityBonus(13) << "\n";
-	std::cout << CalculateAbilityBonus(9) << "\n";
+	abilityScores["Strength"] = GenerateAbilityScore();
+	abilityScores["Dexterity"] = GenerateAbilityScore();
+	abilityScores["Constitution"] = GenerateAbilityScore();
+	abilityScores["Intelligence"] = GenerateAbilityScore();
+	abilityScores["Wisdom"] = GenerateAbilityScore();
+	abilityScores["Charisma"] = GenerateAbilityScore();
+	
+	PrintAbilityScore("Strength", abilityScores["Strength"]);
+	PrintAbilityScore("Dexterity", abilityScores["Dexterity"]);
+	PrintAbilityScore("Constitution", abilityScores["Constitution"]);
+	PrintAbilityScore("Intelligence", abilityScores["Intelligence"]);
+	PrintAbilityScore("Wisdom", abilityScores["Wisdom"]);
+	PrintAbilityScore("Charisma", abilityScores["Charisma"]);
 }
