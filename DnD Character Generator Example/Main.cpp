@@ -7,7 +7,7 @@
 
 int RollD6()
 {
-	return rand() % ((6+1) - 1) + 1; // rand() % ((MAX+1) - MIN) + MIN) 
+	return rand() % ((6+1) - 1) + 1; // rand() % ((MAX+1) - MIN) + MIN 
 }
 
 int GenerateAbilityScore()
